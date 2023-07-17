@@ -6,13 +6,27 @@
     <title>Tienda</title>
 </head>
 <body>
-    <h1>Elige tu articulo de esta lista</h1>
-    <h2>Obtiene tu descuento del 20% si tu valor de compra es mayor a $1000</h2>
+    <h1>Elige tu artículo de esta lista</h1>
+    <h2>Obtén tu descuento del 20% si tu valor de compra es mayor a $1000</h2>
 
-    <p>Remera - $400</p>
-    <p>Pantalón - $650</p>
-    <p>Calzado - $800</p>
-    <p>Campera - $900</p>
+    <div id="opcionesArticulos"></div>
+
+    <form id="prendaForm">
+        <label for="prenda">Prenda:</label>
+        <input type="text" id="prenda" name="prenda">
+        <br>
+        <label for="talle">Talle:</label>
+        <input type="text" id="talle" name="talle">
+        <br>
+        <label for="color">Color:</label>
+        <input type="text" id="color" name="color">
+        <br>
+        <button type="submit">Agregar Prenda</button>
+    </form>
+
+    <button id="filtrarBtn">Filtrar por Talle</button>
+
+    <div id="prendaContainer"></div>
 
     <script src="script.js"></script>
 </body>

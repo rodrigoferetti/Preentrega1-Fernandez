@@ -8,66 +8,86 @@ const articulos = [
 let precioTotalSinDescuento = 0;
 let prendasSeleccionadas = [];
 
+const opcionesArticulos = document.getElementById('opcionesArticulos');
+const prendaForm = document.getElementById('prendaForm');
+const prendaContainer = document.getElementById('prendaContainer');
+const filtrarBtn = document.getElementById('filtrarBtn');
+
+// Mostrar opciones de artículos disponibles
 for (let i = 0; i < articulos.length; i++) {
-  const entrada = Number(prompt(`Coloca cuántos ${articulos[i].nombre}s deseas`));
-  const cantidad = parseInt(entrada);
-  const precioArticulo = cantidad * articulos[i].precio;
-  precioTotalSinDescuento += precioArticulo;
-  console.log(`Precio final de las ${articulos[i].nombre}s: ${precioArticulo}`);
-  
-  for (let j = 0; j < cantidad; j++) {
-    const prenda = cargarPrenda();
-    prendasSeleccionadas.push(prenda);
-  }
+  const opcion = document.createElement('p');
+  opcion.textContent = `${articulos[i].nombre} - $${articulos[i].precio}`;
+  opcionesArticulos.appendChild(opcion);
 }
 
-console.log(`El precio total sin descuento es: ${precioTotalSinDescuento}`);
+prendaForm.addEventListener('submit', function(event) {
+  event.preventDefault();
 
-function aplicarDescuento(total) {
-  if (total > 1000) {
-    const porcentajeDescuento = 0.2;
-    const descuentoFinal = total * porcentajeDescuento;
-    console.log(`Obtienes un descuento de: ${descuentoFinal}`);
-    return total - descuentoFinal;
+  const prendaInput = document.getElementById('prenda');
+  const talleInput = document.getElementById('talle');
+  const colorInput = document.getElementById('color');
+
+  const prenda = prendaInput.value;
+  const talle = talleInput.value;
+  const color = colorInput.value;
+
+  const articuloExistente = articulos.find(item => item.nombre.toLowerCase() === prenda.toLowerCase());
+
+  if (articuloExistente) {
+    const nuevaPrenda = new Prenda(prenda, talle, color);
+    prendasSeleccionadas.push(nuevaPrenda);
+    guardarPrendasSeleccionadas();
+    mostrarPrendasSeleccionadas();
   } else {
-    return total;
+    alert('La prenda seleccionada no está disponible. Por favor elige una prenda de la lista.');
+  }
+
+  prendaInput.value = '';
+  talleInput.value = '';
+  colorInput.value = '';
+});
+
+filtrarBtn.addEventListener('click', function() {
+  const talleInput = prompt("Ingrese el talle para filtrar:");
+  filtrarPorTalle(talleInput);
+});
+
+function guardarPrendasSeleccionadas() {
+  localStorage.setItem('prendas', JSON.stringify(prendasSeleccionadas));
+}
+
+function cargarPrendasSeleccionadas() {
+  const prendasGuardadas = localStorage.getItem('prendas');
+  if (prendasGuardadas) {
+    prendasSeleccionadas = JSON.parse(prendasGuardadas);
   }
 }
 
-const precioFinal = aplicarDescuento(precioTotalSinDescuento);
-console.log(`El precio total es: ${precioFinal}`);
+function mostrarPrendasSeleccionadas() {
+  prendaContainer.innerHTML = "Prendas seleccionadas:<br>";
 
-let contador = 0;
+  for (let i = 0; i < prendasSeleccionadas.length; i++) {
+    const prenda = prendasSeleccionadas[i];
+    const prendaElement = document.createElement('p');
+    prendaElement.textContent = `Prenda ${i + 1}: Talle: ${prenda.talle}, Color: ${prenda.color}`;
+    prendaContainer.appendChild(prendaElement);
+  }
+}
 
-function Prenda(talle, color) {
+function Prenda(prenda, talle, color) {
+  this.prenda = prenda;
   this.talle = talle;
   this.color = color;
-  this.ver = function() {
-    console.log("Ver Prenda " + ++contador);
-    console.log("Talle: " + this.talle + " Color: " + this.color);
-  };
 }
-
-function cargarPrenda() {
-  let talle = prompt("Ingrese talle de prenda");
-  let color = prompt("Ingrese color de prenda");
-
-  const prenda = new Prenda(talle, color);
-  return prenda;
-}
-
-console.log("Prendas seleccionadas:");
-for (let i = 0; i < prendasSeleccionadas.length; i++) {
-  prendasSeleccionadas[i].ver();
-}
-
 
 function filtrarPorTalle(talle) {
   const prendasFiltradas = prendasSeleccionadas.filter((prenda) => prenda.talle.toLowerCase() === talle.toLowerCase());
   console.log(`Prendas filtradas por talle ${talle}:`);
   for (let i = 0; i < prendasFiltradas.length; i++) {
-    prendasFiltradas[i].ver();
+    const prenda = prendasFiltradas[i];
+    console.log(`Prenda ${i + 1}: Talle: ${prenda.talle}, Color: ${prenda.color}`);
   }
 }
 
-filtrarPorTalle("M")
+cargarPrendasSeleccionadas();
+mostrarPrendasSeleccionadas();
