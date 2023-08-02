@@ -1,0 +1,100 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  /* Contenedor de opciones de artículos disponibles */
+  #opcionesArticulos {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  #opcionesArticulos p {
+    margin: 5px;
+  }
+  
+  /* Formulario para agregar prenda */
+  #prendaForm {
+    margin: 20px 0;
+  }
+  
+  #prendaForm label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  #prendaForm input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  #prendaForm button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #prendaForm button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Botón de filtrar */
+  #filtrarBtn {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #28A745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #filtrarBtn:hover {
+    background-color: #1a682c;
+  }
+  
+  /* Contenedor de prendas seleccionadas */
+  #prendaContainer {
+    margin-bottom: 20px;
+  }
+  
+  #prendaContainer p {
+    margin: 5px;
+    padding: 8px;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  /* Botón de finalizar compra */
+  #finalizarCompraBtn {
+    padding: 10px 20px;
+    background-color: #FFC107;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #finalizarCompraBtn:hover {
+    background-color: #d39e00;
+  }
+  
